@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<modification
+		xmlns="https://github.com/vqmod/vqmod"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="https://github.com/vqmod/vqmod https://raw.githubusercontent.com/vqmod/vqmod/master/vqmod.xsd"
+		>
+		<id><![CDATA[[VQMOD] Add text "With Tax" after price in product page]]></id>
+		<version>0.1.0</version>
+		<vqmver>2.6.4</vqmver>
+		<author>kanenas.net (aka Nikolas Branis) - nbran@kanenas.net</author>
+		<file path="catalog/language/english/product/" name="product.php" error="log">
+			<operation error="skip">
+				<search position="after"><![CDATA[// Text]]></search>
+				<add><![CDATA[$_['text_with_tax']             = 'Tax Included';]]></add>
+			</operation>
+		</file>
+		<file path="catalog/language/greek/product/" name="product.php" error="log">
+			<operation error="skip">
+				<search position="after"><![CDATA[// Text]]></search>
+				<add><![CDATA[$_['text_with_tax']             = 'Στην τιμή συμπεριλαμβάνεται ο Φ.Π.Α';]]></add>
+			</operation>
+		</file>
+		<file path="catalog/controller/product/" name="product.php" error="log">
+			<operation error="skip">
+				<search position="after"><![CDATA[$data['text_model'] = $this->language->get('text_model');]]></search>
+				<add><![CDATA[			$data['text_with_tax'] = $this->language->get('text_with_tax');]]></add>
+			</operation>
+		</file>
+		<file path="catalog/view/theme/*/template/product/" name="product.tpl" error="log">
+			<operation error="skip">
+				<search position="before"><![CDATA[<?php if ($tax) { ?>]]></search>
+				<add><![CDATA[
+            <li class="with-tax"><?php echo $text_with_tax; ?></li>
+					]]></add>
+			</operation>
+		</file>
+	</modification>
